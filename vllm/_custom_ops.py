@@ -746,11 +746,17 @@ def cutlass_scaled_fp4_mm(
 
 
 def cutlass_scaled_mm_supports_fp8(cuda_device_capability: int) -> bool:
-    return torch.ops._C.cutlass_scaled_mm_supports_fp8(cuda_device_capability)
+    try:
+        return torch.ops._C.cutlass_scaled_mm_supports_fp8(cuda_device_capability)
+    except AttributeError:
+        return False
 
 
 def cutlass_scaled_mm_supports_block_fp8(cuda_device_capability: int) -> bool:
-    return torch.ops._C.cutlass_scaled_mm_supports_block_fp8(cuda_device_capability)
+    try:
+        return torch.ops._C.cutlass_scaled_mm_supports_block_fp8(cuda_device_capability)
+    except AttributeError:
+        return False
 
 
 def cutlass_scaled_mm(
